@@ -35,6 +35,7 @@ function App() {
     const [selectedDate, setSelectedDate] = useState<Date | undefined>();
     const [editingEvent, setEditingEvent] = useState<FinancialEvent | null>(null);
     const [chartFilter, setChartFilter] = useState<'global' | string>('global');
+    const [hasNotifications, setHasNotifications] = useState(true);
 
     useEffect(() => {
         NotificationService.requestPermission();
@@ -164,9 +165,17 @@ function App() {
                                 </p>
                             </div>
                         </div>
-                        <button className="p-2 glass-button relative">
-                            <Bell size={20} />
-                            <span className="absolute top-2 right-2 w-2 h-2 bg-accent-pink rounded-full border-2 border-[#030712]"></span>
+                        <button
+                            className="p-2 glass-button relative group"
+                            onClick={() => {
+                                setHasNotifications(false);
+                                alert("Has despejado tus notificaciones. ¡Todo al día!");
+                            }}
+                        >
+                            <Bell size={20} className={cn("transition-transform", hasNotifications && "group-hover:rotate-12")} />
+                            {hasNotifications && (
+                                <span className="absolute top-2 right-2 w-2 h-2 bg-accent-pink rounded-full border-2 border-[#030712] animate-pulse"></span>
+                            )}
                         </button>
                         <div
                             className={cn(
