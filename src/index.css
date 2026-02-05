@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@theme {
+  --color-glass-light: rgba(255, 255, 255, 0.1);
+  --color-glass-dark: rgba(0, 0, 0, 0.2);
+  --color-accent-purple: #8B5CF6;
+  --color-accent-pink: #EC4899;
+  --color-accent-blue: #3B82F6;
+  --color-accent-green: #10B981;
+  --color-accent-red: #EF4444;
+  --color-accent-yellow: #F59E0B;
+
+  --background-image-glass-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+
+  --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  body {
+    @apply bg-[#030712] text-slate-100 min-h-screen font-sans antialiased overflow-x-hidden;
+    background-image:
+      radial-gradient(circle at 0% 0%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 100% 100%, rgba(236, 72, 153, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .glass-container {
+    @apply bg-white/5 backdrop-blur-xl border border-white/10 shadow-glass;
+  }
+
+  .glass-card {
+    @apply bg-white/10 backdrop-blur-md border border-white/20 shadow-xl rounded-2xl;
+  }
+
+  .glass-button {
+    @apply px-4 py-2 bg-white/10 backdrop-blur-sm border border-white/10 hover:bg-white/20 hover:border-white/20 transition-all duration-300 rounded-xl flex items-center gap-2;
+  }
+
+  .glass-input {
+    /* bg-opacity-50 ya no existe en v4, usamos color con opacidad directamente o modificador de opacidad */
+    @apply bg-white/5 border border-white/10 rounded-xl px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent-purple/50 focus:border-accent-purple/50 transition-all;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full hover:bg-white/20 transition-colors;
+}
