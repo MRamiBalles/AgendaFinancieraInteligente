@@ -17,10 +17,10 @@ interface Props {
     expenses: number;
     budget?: number; // Optional trip budget
     type: 'global' | 'trip';
+    settings: any;
 }
 
-const FinancialChart: React.FC<Props> = ({ income = 0, expenses, budget = 0, type }) => {
-    const { settings } = useSettings();
+const FinancialChart: React.FC<Props> = ({ income = 0, expenses, budget = 0, type, settings }) => {
     const data = type === 'global'
         ? [
             { name: 'Ingresos', value: income, color: '#10B981' },

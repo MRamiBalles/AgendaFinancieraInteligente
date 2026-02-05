@@ -13,10 +13,10 @@ interface Props {
     onUpdateTrip: (id: string, data: Partial<Trip>) => void;
     onDeleteTrip: (id: string) => void;
     events: FinancialEvent[];
+    settings: any;
 }
 
-const TravelDashboard: React.FC<Props> = ({ trips, onAddTrip, onUpdateTrip, onDeleteTrip, events }) => {
-    const { settings } = useSettings();
+const TravelDashboard: React.FC<Props> = ({ trips, onAddTrip, onUpdateTrip, onDeleteTrip, events, settings }) => {
     const [selectedTripId, setSelectedTripId] = useState<string | null>(null);
     const [isAddingTrip, setIsAddingTrip] = useState(false);
     const [newTrip, setNewTrip] = useState({

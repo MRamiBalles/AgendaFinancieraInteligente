@@ -13,8 +13,14 @@ const GRADIENTS = [
 
 const CURRENCIES = ['$', '€', '£', '¥', 'MXN', 'ARS', 'CLP', 'COP'];
 
-const SettingsView: React.FC = () => {
-    const { settings, updateSettings, clearAllData, exportData } = useSettings();
+interface Props {
+    settings: any;
+    updateSettings: (newSettings: any) => void;
+    clearAllData: () => void;
+    exportData: () => void;
+}
+
+const SettingsView: React.FC<Props> = ({ settings, updateSettings, clearAllData, exportData }) => {
 
     return (
         <div className="h-full flex flex-col gap-8 max-w-4xl mx-auto overflow-y-auto pr-2 custom-scrollbar">

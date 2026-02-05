@@ -29,7 +29,7 @@ function App() {
     const [activeTab, setActiveTab] = useState<'agenda' | 'travel' | 'settings'>('agenda');
     const { events, addEvent, updateEvent, deleteEvent, financialSummary } = useEvents();
     const { trips, addTrip, updateTrip, deleteTrip } = useTrips();
-    const { settings } = useSettings();
+    const { settings, updateSettings, clearAllData, exportData } = useSettings();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState<Date | undefined>();
@@ -222,7 +222,7 @@ function App() {
                                                 </select>
                                             </div>
                                         </div>
-                                        <FinancialChart {...filteredChartData} />
+                                        <FinancialChart {...filteredChartData} settings={settings} />
                                     </section>
 
                                     <section className="glass-card p-6">
@@ -264,6 +264,7 @@ function App() {
                                     onUpdateTrip={updateTrip}
                                     onDeleteTrip={deleteTrip}
                                     events={events}
+                                    settings={settings}
                                 />
                             </motion.div>
                         )}
@@ -276,7 +277,12 @@ function App() {
                                 exit={{ opacity: 0, y: -20 }}
                                 className="h-full"
                             >
-                                <SettingsView />
+                                <SettingsView
+                                    settings={settings}
+                                    updateSettings={updateSettings}
+                                    clearAllData={clearAllData}
+                                    exportData={exportData}
+                                />
                             </motion.div>
                         )}
                     </AnimatePresence>
@@ -291,6 +297,7 @@ function App() {
                 selectedDate={selectedDate}
                 eventToEdit={editingEvent}
                 trips={trips}
+                settings={settings}
             />
         </div>
     );

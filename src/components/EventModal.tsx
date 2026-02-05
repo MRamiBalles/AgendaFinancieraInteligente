@@ -14,6 +14,7 @@ interface Props {
     selectedDate?: Date;
     eventToEdit?: FinancialEvent | null;
     trips: Trip[];
+    settings: any;
 }
 
 const CATEGORIES: { label: string; value: Category; color: string }[] = [
@@ -24,8 +25,7 @@ const CATEGORIES: { label: string; value: Category; color: string }[] = [
     { label: 'Otro', value: 'other', color: '#64748b' },
 ];
 
-const EventModal: React.FC<Props> = ({ isOpen, onClose, onSave, onDelete, selectedDate, eventToEdit, trips }) => {
-    const { settings } = useSettings();
+const EventModal: React.FC<Props> = ({ isOpen, onClose, onSave, onDelete, selectedDate, eventToEdit, trips, settings }) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState<Category>('personal');
