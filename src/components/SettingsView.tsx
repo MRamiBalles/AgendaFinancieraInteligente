@@ -121,15 +121,42 @@ const SettingsView: React.FC = () => {
                     <div className="flex flex-wrap gap-4 pt-2">
                         <button
                             onClick={exportData}
-                            className="glass-button bg-accent-purple/10 border-accent-purple/30 text-accent-purple hover:bg-accent-purple/20 pr-6"
+                            className="glass-button bg-accent-purple/10 border-accent-purple/30 text-accent-purple hover:bg-accent-purple/20"
                         >
-                            <Download size={18} /> Exportar Backup (JSON)
+                            <Download size={18} /> Exportar Backup
                         </button>
+
+                        <label className="glass-button bg-accent-blue/10 border-accent-blue/30 text-accent-blue hover:bg-accent-blue/20 cursor-pointer">
+                            <Upload size={18} /> Cargar Backup
+                            <input
+                                type="file"
+                                accept=".json"
+                                className="hidden"
+                                onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    if (!file) return;
+                                    const reader = new FileReader();
+                                    reader.onload = (event) => {
+                                        try {
+                                            const data = JSON.parse(event.target?.result as string);
+                                            if (data.events) localStorage.setItem('finance_agenda_events', JSON.stringify(data.events));
+                                            if (data.trips) localStorage.setItem('finance_agenda_trips', JSON.stringify(data.trips));
+                                            if (data.settings) localStorage.setItem('finance_agenda_settings', JSON.stringify(data.settings));
+                                            window.location.reload();
+                                        } catch (err) {
+                                            alert('Error al importar el archivo. Formato no válido.');
+                                        }
+                                    };
+                                    reader.readAsText(file);
+                                }}
+                            />
+                        </label>
+
                         <button
                             onClick={clearAllData}
-                            className="glass-button bg-red-500/10 border-red-500/30 text-red-500 hover:bg-red-500/20 pr-6"
+                            className="glass-button bg-red-500/10 border-red-500/30 text-red-500 hover:bg-red-500/20"
                         >
-                            <Trash2 size={18} /> Borrar todos los datos
+                            <Trash2 size={18} /> Borrar Todo
                         </button>
                     </div>
                 </section>
