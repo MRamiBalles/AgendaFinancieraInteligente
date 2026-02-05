@@ -2,6 +2,7 @@ import React from 'react';
 import { User, DollarSign, Trash2, Download, Bell, Palette, Globe, Upload } from 'lucide-react';
 import { useSettings } from '../hooks/useSettings';
 import { cn } from '../utils/cn';
+import { UserSettings } from '../types';
 
 const GRADIENTS = [
     { name: 'Púrpura Profundo', value: 'from-accent-purple to-accent-pink' },
@@ -14,8 +15,8 @@ const GRADIENTS = [
 const CURRENCIES = ['$', '€', '£', '¥', 'MXN', 'ARS', 'CLP', 'COP'];
 
 interface Props {
-    settings: any;
-    updateSettings: (newSettings: any) => void;
+    settings: UserSettings;
+    updateSettings: (newSettings: Partial<UserSettings>) => void;
     clearAllData: () => void;
     exportData: () => void;
 }

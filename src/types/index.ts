@@ -41,3 +41,10 @@ export interface FinancialSummary {
     totalExpenses: number;
     balance: number;
 }
+
+export interface UserSettings {
+    userName: string;
+    currency: string;
+    avatarGradient: string;
+    notificationsEnabled: boolean;
+}

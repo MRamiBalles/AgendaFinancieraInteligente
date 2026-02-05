@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { X, Bell, DollarSign, Clock, Tag, Plane, Link as LinkIcon } from 'lucide-react';
-import { FinancialEvent, Category, FinancialType, Trip } from '../types';
+import { FinancialEvent, Category, FinancialType, Trip, UserSettings } from '../types';
 import { format } from 'date-fns';
 import { useSettings } from '../hooks/useSettings';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -14,7 +14,7 @@ interface Props {
     selectedDate?: Date;
     eventToEdit?: FinancialEvent | null;
     trips: Trip[];
-    settings: any;
+    settings: UserSettings;
 }
 
 const CATEGORIES: { label: string; value: Category; color: string }[] = [

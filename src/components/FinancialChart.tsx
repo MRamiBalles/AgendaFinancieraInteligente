@@ -11,13 +11,14 @@ import {
     ReferenceLine
 } from 'recharts';
 import { useSettings } from '../hooks/useSettings';
+import { UserSettings } from '../types';
 
 interface Props {
     income?: number;
     expenses: number;
     budget?: number; // Optional trip budget
     type: 'global' | 'trip';
-    settings: any;
+    settings: UserSettings;
 }
 
 const FinancialChart: React.FC<Props> = ({ income = 0, expenses, budget = 0, type, settings }) => {

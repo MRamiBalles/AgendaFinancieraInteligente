@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Plane, Calendar, X, Plus, Trash2, CheckSquare, Square, DollarSign, FileText, Wallet } from 'lucide-react';
-import { Trip, FinancialEvent } from '../types';
+import { Trip, FinancialEvent, UserSettings } from '../types';
 import { format, isWithinInterval, parseISO } from 'date-fns';
 import { useSettings } from '../hooks/useSettings';
 import { es } from 'date-fns/locale';
@@ -13,7 +13,7 @@ interface Props {
     onUpdateTrip: (id: string, data: Partial<Trip>) => void;
     onDeleteTrip: (id: string) => void;
     events: FinancialEvent[];
-    settings: any;
+    settings: UserSettings;
 }
 
 const TravelDashboard: React.FC<Props> = ({ trips, onAddTrip, onUpdateTrip, onDeleteTrip, events, settings }) => {
