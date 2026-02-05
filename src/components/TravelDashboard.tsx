@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { Plane, Calendar, X, Plus, Trash2, CheckSquare, Square, DollarSign, FileText } from 'lucide-react';
+import { Plane, Calendar, X, Plus, Trash2, CheckSquare, Square, DollarSign, FileText, Wallet } from 'lucide-react';
 import { Trip, FinancialEvent } from '../types';
 import { format, isWithinInterval, parseISO } from 'date-fns';
+import { useSettings } from '../hooks/useSettings';
 import { es } from 'date-fns/locale';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const TravelDashboard: React.FC<Props> = ({ trips, onAddTrip, onUpdateTrip, onDeleteTrip, events }) => {
+    const { settings } = useSettings();
     const [selectedTripId, setSelectedTripId] = useState<string | null>(null);
     const [isAddingTrip, setIsAddingTrip] = useState(false);
     const [newTrip, setNewTrip] = useState({
@@ -91,7 +93,7 @@ const TravelDashboard: React.FC<Props> = ({ trips, onAddTrip, onUpdateTrip, onDe
                                 <div className="flex justify-between text-xs text-slate-400">
                                     <span>{format(parseISO(trip.startDate), 'dd MMM', { locale: es })} - {format(parseISO(trip.endDate), 'dd MMM', { locale: es })}</span>
                                     <span className={cn(totalSpent > trip.budget ? "text-red-400 font-bold" : "text-emerald-400")}>
-                                        ${totalSpent} / ${trip.budget}
+                                        {settings.currency}{totalSpent} / {settings.currency}{trip.budget}
                                     </span>
                                 </div>
                             </motion.div>
@@ -133,16 +135,16 @@ const TravelDashboard: React.FC<Props> = ({ trips, onAddTrip, onUpdateTrip, onDe
                                 {/* Presupuesto Card */}
                                 <div className="glass-card p-6 flex flex-col gap-2">
                                     <div className="flex items-center gap-2 text-slate-400 text-sm mb-2">
-                                        <DollarSign size={16} /> Presupuesto
+                                        <Wallet size={16} /> Presupuesto
                                     </div>
-                                    <div className="text-3xl font-bold">${selectedTrip.budget}</div>
+                                    <div className="text-3xl font-bold">{settings.currency}{selectedTrip.budget}</div>
                                     <div className="w-full bg-white/10 h-2 rounded-full mt-2 overflow-hidden">
                                         <div
                                             className={cn("h-full transition-all duration-500", calculateTripTotal(selectedTrip.id) > selectedTrip.budget ? "bg-red-500" : "bg-emerald-500")}
                                             style={{ width: `${Math.min((calculateTripTotal(selectedTrip.id) / selectedTrip.budget) * 100, 100)}%` }}
                                         />
                                     </div>
-                                    <p className="text-xs text-slate-500 mt-1">Gastado: ${calculateTripTotal(selectedTrip.id)}</p>
+                                    <p className="text-xs text-slate-500 mt-1">Gastado: {settings.currency}{calculateTripTotal(selectedTrip.id)}</p>
                                 </div>
 
                                 {/* Itinerario Card */}
@@ -225,7 +227,7 @@ const TravelDashboard: React.FC<Props> = ({ trips, onAddTrip, onUpdateTrip, onDe
                                                         <div className="text-sm font-medium">{e.title}</div>
                                                         <div className="text-[10px] text-slate-500">{format(parseISO(e.date), 'dd MMM')}</div>
                                                     </div>
-                                                    <div className="text-red-400 font-bold">-${e.financials?.amount}</div>
+                                                    <div className="text-red-400 font-bold">-{settings.currency}{e.financials?.amount}</div>
                                                 </div>
                                             ))
                                         ) : (

@@ -10,6 +10,7 @@ import {
     Cell,
     ReferenceLine
 } from 'recharts';
+import { useSettings } from '../hooks/useSettings';
 
 interface Props {
     income?: number;
@@ -19,6 +20,7 @@ interface Props {
 }
 
 const FinancialChart: React.FC<Props> = ({ income = 0, expenses, budget = 0, type }) => {
+    const { settings } = useSettings();
     const data = type === 'global'
         ? [
             { name: 'Ingresos', value: income, color: '#10B981' },
@@ -54,6 +56,7 @@ const FinancialChart: React.FC<Props> = ({ income = 0, expenses, budget = 0, typ
                         }}
                         itemStyle={{ color: '#fff' }}
                         cursor={{ fill: 'rgba(255,255,255,0.05)' }}
+                        formatter={(value: number | undefined) => [`${settings.currency}${(value || 0).toLocaleString()}`, 'Monto']}
                     />
                     <Bar dataKey="value" radius={[8, 8, 0, 0]} barSize={type === 'global' ? 60 : 80}>
                         {data.map((entry, index) => (

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { X, Bell, DollarSign, Clock, Tag, Plane, Link as LinkIcon } from 'lucide-react';
 import { FinancialEvent, Category, FinancialType, Trip } from '../types';
 import { format } from 'date-fns';
+import { useSettings } from '../hooks/useSettings';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '../utils/cn';
 
@@ -24,6 +25,7 @@ const CATEGORIES: { label: string; value: Category; color: string }[] = [
 ];
 
 const EventModal: React.FC<Props> = ({ isOpen, onClose, onSave, onDelete, selectedDate, eventToEdit, trips }) => {
+    const { settings } = useSettings();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [category, setCategory] = useState<Category>('personal');
@@ -224,13 +226,13 @@ const EventModal: React.FC<Props> = ({ isOpen, onClose, onSave, onDelete, select
                             </div>
                             {financialType !== 'none' && (
                                 <div className="relative">
-                                    <DollarSign size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
+                                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 font-bold">{settings.currency}</span>
                                     <input
                                         type="number"
                                         value={amount}
                                         onChange={(e) => setAmount(Number(e.target.value))}
                                         className="glass-input w-full pl-10"
-                                        placeholder="0.00"
+                                        placeholder="0"
                                     />
                                 </div>
                             )}

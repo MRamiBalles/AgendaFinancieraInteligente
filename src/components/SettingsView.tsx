@@ -1,5 +1,5 @@
 import React from 'react';
-import { User, DollarSign, Trash2, Download, Bell, Palette, Globe } from 'lucide-react';
+import { User, DollarSign, Trash2, Download, Bell, Palette, Globe, Upload } from 'lucide-react';
 import { useSettings } from '../hooks/useSettings';
 import { cn } from '../utils/cn';
 
